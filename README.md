@@ -1,4 +1,4 @@
-# MeetClone - Google Meet Clone
+#lets meet
 
 A comprehensive video conferencing platform with WebRTC, Socket.io, and MongoDB integration.
 
