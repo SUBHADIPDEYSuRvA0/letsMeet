@@ -1,0 +1,163 @@
+<div class="row">
+  <div class="col-lg-4">
+    <div class="card shadow-sm mb-4">
+      <div class="card-body text-center">
+        <div class="avatar-circle mx-auto mb-3">
+          <span class="avatar-text"><%= user.name.charAt(0).toUpperCase() %></span>
+        </div>
+        <h4 class="mb-1"><%= user.name %></h4>
+        <p class="text-muted mb-3"><%= user.email %></p>
+        <div class="badge bg-<%= user.isPremium ? 'warning' : 'secondary' %> mb-3">
+          <%= user.isPremium ? 'Premium User' : 'Free User' %>
+        </div>
+        <% if (user.role === 'admin') { %>
+          <div class="badge bg-danger mb-3">Administrator</div>
+        <% } %>
+        <% if (!user.isPremium) { %>
+          <div class="d-grid">
+            <a href="/upgrade" class="btn btn-outline-primary">Upgrade to Premium</a>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    
+    <% if (user.isPremium) { %>
+      <div class="card shadow-sm mb-4">
+        <div class="card-header">
+          <h5 class="card-title mb-0">API Access</h5>
+        </div>
+        <div class="card-body">
+          <% if (user.apiKey && user.apiSecret) { %>
+            <div class="mb-3">
+              <label class="form-label">API Key</label>
+              <div class="input-group">
+                <input type="text" class="form-control" value="<%= user.apiKey %>" readonly>
+                <button class="btn btn-outline-secondary copy-btn" data-clipboard-text="<%= user.apiKey %>" type="button">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">API Secret</label>
+              <div class="input-group">
+                <input type="text" class="form-control" value="<%= user.apiSecret %>" readonly>
+                <button class="btn btn-outline-secondary copy-btn" data-clipboard-text="<%= user.apiSecret %>" type="button">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="d-grid">
+              <form action="/auth/generate-api-keys" method="POST">
+                <button type="submit" class="btn btn-warning w-100">Regenerate Keys</button>
+              </form>
+            </div>
+          <% } else { %>
+            <p>You don't have API keys yet. Generate them to integrate MeetClone with your applications.</p>
+            <div class="d-grid">
+              <form action="/auth/generate-api-keys" method="POST">
+                <button type="submit" class="btn btn-primary w-100">Generate API Keys</button>
+              </form>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% } %>
+  </div>
+  
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Profile Information</h5>
+      </div>
+      <div class="card-body">
+        <form action="/auth/profile" method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              value="<%= user.name %>"
+              required
+            />
+          </div>
+          
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              value="<%= user.email %>"
+              required
+            />
+          </div>
+          
+          <div class="mb-3">
+            <label for="password" class="form-label">Change Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Leave blank to keep current password"
+            />
+            <div class="form-text">Enter a new password only if you want to change it</div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="password2" class="form-label">Confirm New Password</label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="form-control"
+              placeholder="Confirm new password"
+            />
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Initialize clipboard.js
+  document.addEventListener('DOMContentLoaded', function() {
+    const clipboard = new ClipboardJS('.copy-btn');
+    
+    clipboard.on('success', function(e) {
+      const button = e.trigger;
+      const originalHTML = button.innerHTML;
+      
+      button.innerHTML = '<i class="fas fa-check"></i>';
+      setTimeout(function() {
+        button.innerHTML = originalHTML;
+      }, 2000);
+      
+      e.clearSelection();
+    });
+  });
+</script>
+
+<style>
+  .avatar-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .avatar-text {
+    font-size: 48px;
+    color: white;
+    font-weight: bold;
+  }
+</style>

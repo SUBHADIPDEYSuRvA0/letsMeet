@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="card-title text-center mb-4">Create New Meeting</h2>
+        
+        <form action="/meetings/create" method="POST">
+          <input type="hidden" name="roomCode" value="<%= roomCode %>">
+          
+          <div class="mb-3">
+            <label for="title" class="form-label">Meeting Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              class="form-control"
+              placeholder="Enter meeting title (optional)"
+            />
+          </div>
+          
+          <div class="mb-4">
+            <label class="form-label">Meeting Code</label>
+            <div class="input-group">
+              <input type="text" class="form-control" value="<%= roomCode %>" readonly>
+              <button class="btn btn-outline-secondary copy-btn" data-clipboard-text="<%= roomCode %>" type="button">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div class="form-text">Share this code with others to invite them to your meeting</div>
+          </div>
+          
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">Start Meeting</button>
+            <a href="/" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Initialize clipboard.js
+  document.addEventListener('DOMContentLoaded', function() {
+    const clipboard = new ClipboardJS('.copy-btn');
+    
+    clipboard.on('success', function(e) {
+      const button = e.trigger;
+      const originalHTML = button.innerHTML;
+      
+      button.innerHTML = '<i class="fas fa-check"></i>';
+      setTimeout(function() {
+        button.innerHTML = originalHTML;
+      }, 2000);
+      
+      e.clearSelection();
+    });
+  });
+</script>
+</body>
+</html>

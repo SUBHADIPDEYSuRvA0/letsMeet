@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <div class="text-center mb-4">
+          <img src="/img/logo.png" alt="MeetClone Logo" height="50" class="mb-3">
+          <h2 class="fw-bold">Create Account</h2>
+          <p class="text-muted">Sign up for a free MeetClone account</p>
+        </div>
+        
+        <form action="/auth/register" method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter your full name"
+              value="<%= typeof name != 'undefined' ? name : '' %>"
+              required
+            />
+          </div>
+          
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter your email"
+              value="<%= typeof email != 'undefined' ? email : '' %>"
+              required
+            />
+          </div>
+          
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Create a password"
+              required
+            />
+            <div class="form-text">Password must be at least 6 characters</div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="password2" class="form-label">Confirm Password</label>
+            <input
+              type="password"
+              id="password2"
+              name="password2"
+              class="form-control"
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
+          
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+          </div>
+        </form>
+        
+        <div class="text-center mt-4">
+          <p>Already have an account? <a href="/auth/login">Sign in</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

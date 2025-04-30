@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <div class="text-center mb-4">
+          <img src="/img/logo.png" alt="MeetClone Logo" height="50" class="mb-3">
+          <h2 class="fw-bold">Sign In</h2>
+          <p class="text-muted">Sign in to your MeetClone account</p>
+        </div>
+        
+        <form action="/auth/login" method="POST">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">Sign In</button>
+          </div>
+        </form>
+        
+        <div class="text-center mt-4">
+          <p>Don't have an account? <a href="/auth/register">Sign up</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

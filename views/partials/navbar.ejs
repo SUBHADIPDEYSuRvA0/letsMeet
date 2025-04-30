@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/img/logo.png" alt="MeetClone Logo" height="30" class="me-2">
+      <span class="fw-bold text-primary">MeetClone</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <% if (typeof user !== 'undefined' && user) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/meetings/new">
+              <i class="fas fa-video me-1"></i> New Meeting
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/meetings/join">
+              <i class="fas fa-sign-in-alt me-1"></i> Join Meeting
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/meetings/my-meetings">
+              <i class="fas fa-calendar me-1"></i> My Meetings
+            </a>
+          </li>
+          <% if (user.role === 'admin') { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">
+                <i class="fas fa-user-shield me-1"></i> Admin
+              </a>
+            </li>
+          <% } %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-user-circle me-1"></i> <%= user.name %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="/auth/profile">Profile</a></li>
+              <% if (user.isPremium) { %>
+                <li><a class="dropdown-item" href="/api">API Access</a></li>
+              <% } else { %>
+                <li><a class="dropdown-item" href="/upgrade">Upgrade to Premium</a></li>
+              <% } %>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
+            </ul>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/auth/register">Register</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
